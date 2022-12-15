@@ -7,16 +7,16 @@ the sales rep name, and the account name. Sort the accounts alphabetically (A-Z)
 */
 
 SELECT 
-    public.region.name AS region,   
-    public.sales_reps.name AS sales_rep,
-    public.accounts.name AS account_name
+    public.region.name AS Region,   
+    public.sales_reps.name AS Sales_Rep,
+    public.accounts.name AS Account_Name
 FROM public.sales_reps
 INNER JOIN public.region
 ON public.sales_reps.region_id = public.region.id
 INNER JOIN public.accounts
 ON public.sales_reps.id = public.accounts.sales_rep_id
 WHERE public.sales_reps.region_id = 2
-ORDER BY account_name
+ORDER BY Account_Name
 
 /*
 
@@ -28,9 +28,9 @@ Sort the accounts alphabetically (A-Z) according to account name.
 */
 
 SELECT 
-    public.region.name AS region,   
-    public.sales_reps.name AS sales_rep,
-    public.accounts.name AS account_name
+    public.region.name AS Region,   
+    public.sales_reps.name AS Sales_Rep,
+    public.accounts.name AS Account_Name
 FROM public.sales_reps
 INNER JOIN public.region
 ON public.sales_reps.region_id = public.region.id
@@ -38,7 +38,7 @@ INNER JOIN public.accounts
 ON public.sales_reps.id = public.accounts.sales_rep_id
 WHERE public.sales_reps.region_id = 2
     AND public.sales_reps.name LIKE 'S%'
-ORDER BY account_name
+ORDER BY Account_Name
 
 /*
 
@@ -50,9 +50,9 @@ Sort the accounts alphabetically (A-Z) according to account name.
 */
 
 SELECT 
-    public.region.name AS region,   
-    public.sales_reps.name AS sales_rep,
-    public.accounts.name AS account_name
+    public.region.name AS Region,   
+    public.sales_reps.name AS Sales_Rep,
+    public.accounts.name AS Account_Name
 FROM public.sales_reps
 INNER JOIN public.region
 ON public.sales_reps.region_id = public.region.id
@@ -60,7 +60,7 @@ INNER JOIN public.accounts
 ON public.sales_reps.id = public.accounts.sales_rep_id
 WHERE public.sales_reps.region_id = 2
     AND public.sales_reps.name LIKE 'K%'
-ORDER BY account_name;
+ORDER BY Account_Name;
 
 /*
 
@@ -71,14 +71,14 @@ for each account.
 */
 
 SELECT
-    public.accounts.name AS account,
-    ROUND(AVG(public.orders.standard_amt_usd), 2) AS standard_avg,
-    ROUND(AVG(public.orders.gloss_amt_usd), 2) AS standard_avg,
-    ROUND(AVG(public.orders.poster_amt_usd), 2) AS standard_avg    
+    public.accounts.name AS Account,
+    ROUND(AVG(public.orders.standard_amt_usd), 2) AS Standard_Avg,
+    ROUND(AVG(public.orders.gloss_amt_usd), 2) AS Gloss_Avg,
+    ROUND(AVG(public.orders.poster_amt_usd), 2) AS Poster_Avg    
 FROM public.orders
 INNER JOIN public.accounts
 ON public.orders.account_id = public.accounts.id
-GROUP BY public.accounts.name
+GROUP BY Account;
 
 /*
 
@@ -89,13 +89,13 @@ Order your table with the highest number of occurrences first.
 */
 
 SELECT
-    public.sales_reps.name AS sales_rep,
-    public.web_events.channel AS channel,
-    COUNT(public.web_events.channel) AS channel_count
+    public.sales_reps.name AS Sales_Rep,
+    public.web_events.channel AS Channel,
+    COUNT(public.web_events.channel) AS Channel_Count
 FROM public.sales_reps
 INNER JOIN public.accounts
 ON public.accounts.sales_rep_id = public.sales_reps.id
 LEFT JOIN public.web_events
 ON public.accounts.id = public.web_events.account_id
 GROUP BY public.sales_reps.name, public.web_events.channel
-ORDER BY channel_count DESC
+ORDER BY channel_count DESC;
